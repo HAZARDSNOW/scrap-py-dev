@@ -20,8 +20,8 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # --- Telegram Settings ---
-TELEGRAM_BOT_TOKEN = '7834703255:AAHAT2vWQR1StbR2kaYKglcKxQ1DT1grxG4' # Your Dev.to bot token
-TELEGRAM_CHANNEL_ID = '@Dev_hidro'
+TELEGRAM_BOT_TOKEN = os.getenv("BOT_TOKEN") # Your Dev.to bot token
+TELEGRAM_CHANNEL_ID = os.getenv("CHANNEL_ID")
 
 # --- AI Translation Bot Settings ---
 AI_API_URL = "https://text.pollinations.ai/"
