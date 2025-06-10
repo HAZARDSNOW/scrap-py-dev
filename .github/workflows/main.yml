@@ -1,0 +1,23 @@
+name: My Custom Workflow
+
+on:
+  workflow_dispatch:  # اجرا دستی
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install Dependencies
+        run: |
+          pip install requests beautifulsoup4 pillow python-telegram-bot
+
+      - name: Execute Python Script
+        run: python scrap2.py
