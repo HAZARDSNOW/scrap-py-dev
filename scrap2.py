@@ -19,8 +19,8 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # --- Telegram Settings ---
-TELEGRAM_BOT_TOKEN = '7824559440:AAHgn8kr0pBuNio-iBAYuG1MmavlOPwjU5c'
-TELEGRAM_CHANNEL_ID = '@Dev_hidro'
+TELEGRAM_BOT_TOKEN = os.getenv("BOT_TOKEN") # Your Dev.to bot token
+TELEGRAM_CHANNEL_ID = os.getenv("CHANNEL_ID")
 
 # Directory to store background images
 BACKGROUND_IMAGES_DIR = 'background_images'
