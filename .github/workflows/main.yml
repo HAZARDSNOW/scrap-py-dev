@@ -1,7 +1,9 @@
-name: Run Python Script
+name: Run Python Script Every 30 Minutes
 
 on:
-  workflow_dispatch:  # اجرا دستی
+  workflow_dispatch:  # اجرای دستی
+  schedule:
+    - cron: '*/30 * * * *'  # هر 30 دقیقه یکبار
 
 jobs:
   run-script:
@@ -19,5 +21,13 @@ jobs:
         run: |
           pip install requests beautifulsoup4 pillow python-telegram-bot telebot
 
+      - name: Mask Secrets  # جلوگیری از نمایش توکن در لاگ‌های Actions
+        run: |
+          echo "::add-mask::${{ secrets.BOT_TOKEN }}"
+          echo "::add-mask::${{ secrets.CHANNEL_ID }}"
+
       - name: Execute Python Script
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          TELEGRAM_CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
         run: python photo+textPers.py
