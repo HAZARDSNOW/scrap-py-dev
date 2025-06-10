@@ -20,8 +20,14 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # --- Telegram Settings ---
-TELEGRAM_BOT_TOKEN = os.getenv("BOT_TOKEN") # Your Dev.to bot token
-TELEGRAM_CHANNEL_ID = os.getenv("CHANNEL_ID")
+
+TELEGRAM_BOT_TOKEN = os.environ.get("BOT_TOKEN")
+TELEGRAM_CHANNEL_ID = os.environ.get("CHANNEL_ID")
+
+if not TELEGRAM_BOT_TOKEN:
+    raise ValueError("Telegram bot token is missing!")
+if not TELEGRAM_CHANNEL_ID:
+    raise ValueError("Channel ID is missing!")
 
 # --- AI Translation Bot Settings ---
 AI_API_URL = "https://text.pollinations.ai/"
