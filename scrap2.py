@@ -313,23 +313,21 @@ async def process_devto_posts():
         logger.error(f"An unexpected error occurred: {e}")
 
 async def main():
-    """Main async function"""
-    logger.info("Starting bot...")
-    while True:
-        try:
-            await process_devto_posts()
-            await asyncio.sleep(1800)  # Check every 30 minutes
-        except asyncio.CancelledError:
-            logger.info("Bot stopped by cancellation.")
-            break
-        except Exception as e:
-            logger.error(f"Error in main loop: {e}")
-            await asyncio.sleep(300)  # Wait 5 minutes after error before retrying
+    """
+    Main async function.
+    This version is designed to run ONCE and then exit.
+    The scheduling is handled by an external tool like cron or GitHub Actions.
+    """
+    logger.info("Starting a single run to check for new posts...")
+    await process_devto_posts()
+    logger.info("Single run finished successfully.")
 
 if __name__ == "__main__":
     try:
+        # حالا تابع main فقط یک بار اجرا شده و به پایان می‌رسد
         asyncio.run(main())
-    except KeyboardInterrupt:
-        logger.info("Bot stopped manually by KeyboardInterrupt.")
     except Exception as e:
-        logger.critical(f"Unhandled exception during bot startup: {e}")
+        # اگر در حین اجرا خطایی رخ دهد، آن را لاگ کرده و با کد خطا از اسکریپت خارج می‌شویم
+        # این کار باعث می‌شود اجرای Action در گیت‌هاب به عنوان "Failed" ثبت شود
+        logger.critical(f"Script failed with an unhandled exception: {e}")
+        sys.exit(1)
