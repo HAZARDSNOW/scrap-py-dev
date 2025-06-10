@@ -21,4 +21,4 @@ jobs:
           pip install requests beautifulsoup4 pillow python-telegram-bot
 
       - name: Execute Python Script
-        run: python scrap.py
+        run: python scrap2.py
