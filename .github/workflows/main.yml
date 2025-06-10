@@ -1,14 +1,14 @@
-name: Run Python Script Every 30 Minutes
+name: Run Python Script
 
 on:
-  workflow_dispatch:  # اجرای دستی
+  workflow_dispatch:
   schedule:
-    - cron: '*/30 * * * *'  # هر 30 دقیقه یکبار
+    - cron: '*/30 * * * *'  # هر 30 دقیقه
 
 jobs:
   run-script:
     runs-on: ubuntu-latest
-    environment: Token_Bot
+    
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -22,13 +22,8 @@ jobs:
         run: |
           pip install requests beautifulsoup4 pillow python-telegram-bot telebot
 
-      - name: Mask Secrets  # جلوگیری از نمایش توکن در لاگ‌های Actions
-        run: |
-          echo "::add-mask::${{ secrets.BOT_TOKEN }}"
-          echo "::add-mask::${{ secrets.CHANNEL_ID }}"
-
       - name: Execute Python Script
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          TELEGRAM_CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
         run: python photo+textPers.py
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
