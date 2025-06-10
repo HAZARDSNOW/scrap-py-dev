@@ -1,4 +1,4 @@
-name: My Custom Workflow
+name: Run Python Script
 
 on:
   workflow_dispatch:  # اجرا دستی
@@ -17,7 +17,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install requests beautifulsoup4 pillow python-telegram-bot
+          pip install requests beautifulsoup4 pillow python-telegram-bot telebot
 
       - name: Execute Python Script
-        run: python scrap2.py
+        run: python photo+textPers.py
