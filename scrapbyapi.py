@@ -4,12 +4,12 @@ from datetime import datetime, timedelta
 from urllib.parse import urljoin
 
 # تنظیمات اولیه
-DEVTO_API = "https://dev.to/api/articles?state=fresh&per_page=10"
-COMMENTS_API = "https://dev.to/api/articles/{}/comments"
+DEVTO_API = "https://dev.to/api/articles?state=fresh&per_page=10" 
+COMMENTS_API = "https://dev.to/api/articles/{}/comments" 
 TELEGRAM_BOT_TOKEN = os.getenv("BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.getenv("CHANNEL_ID")
-POLLINATIONS_TEXT_API = "https://text.pollinations.ai/openai" 
-POLLINATIONS_IMAGE_API = "https://image.pollinations.ai/prompt/"
+POLLINATIONS_TEXT_API = "https://text.pollinations.ai/openai"  
+POLLINATIONS_IMAGE_API = "https://image.pollinations.ai/prompt/" 
 
 def generate_summary(article_text):
     try:
@@ -43,7 +43,7 @@ def get_default_image(title):
         url = f"{POLLINATIONS_IMAGE_API}{prompt}?model=flux&width=1024&height=1024&nologo=true"
         response = requests.get(url)
         response.raise_for_status()
-        return response.url  # URL تصویر تولیدشده
+        return response.url  
     except Exception as e:
         print(f"خطا در تولید تصویر: {e}")
         return None
@@ -67,7 +67,7 @@ def get_top_comments(article_id):
             key=lambda x: x.get("positive_reactions_count", 0),
             reverse=True
         )
-        return sorted_comments[:5]
+        return sorted_comments[:5]  
     except Exception as e:
         print(f"خطا در دریافت کامنت‌ها: {e}")
         return []
@@ -121,10 +121,6 @@ def send_to_telegram(article):
     if top_comments:
         comments_message = "<b>💬 ۵ کامنت برتر:</b>\n\n"
         for comment in top_comments:
-            username = comment.get("user", {}).get("username", "ناشناس")
-            comment_body = comment.get("body_html", "")[:200]  # محدود به 200 کاراکتر
-            reactions = comment.get("positive_reactions_count", 0)
-            comments_message += f"👤 <b>{username reciprocal for comment in top_comments:"
             username = comment.get("user", {}).get("username", "ناشناس")
             comment_body = comment.get("body_html", "")[:200]  # محدود به 200 کاراکتر
             reactions = comment.get("positive_reactions_count", 0)
