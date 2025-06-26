@@ -67,7 +67,7 @@ def get_top_comments(article_id):
             key=lambda x: x.get("positive_reactions_count", 0),
             reverse=True
         )
-        return sorted_comments[:5]  # فقط 5 کامنت برتر
+        return sorted_comments[:5]
     except Exception as e:
         print(f"خطا در دریافت کامنت‌ها: {e}")
         return []
@@ -124,7 +124,7 @@ def send_to_telegram(article):
             username = comment.get("user", {}).get("username", "ناشناس")
             comment_body = comment.get("body_html", "")[:200]  # محدود به 200 کاراکتر
             reactions = comment.get("positive_reactions_count", 0)
-            comments_message += f"👤 <b>{username reciprocal for comment in top_comments:
+            comments_message += f"👤 <b>{username reciprocal for comment in top_comments:"
             username = comment.get("user", {}).get("username", "ناشناس")
             comment_body = comment.get("body_html", "")[:200]  # محدود به 200 کاراکتر
             reactions = comment.get("positive_reactions_count", 0)
