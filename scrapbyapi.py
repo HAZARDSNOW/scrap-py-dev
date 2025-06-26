@@ -3,6 +3,8 @@ import json
 import os
 from datetime import datetime, timedelta
 from urllib.parse import urljoin
+from datetime import datetime, timedelta, timezone
+
 
 # تنظیمات اولیه
 DEVTO_API = "https://dev.to/api/articles?state=fresh&per_page=10" 
@@ -145,17 +147,23 @@ def send_to_telegram(article):
     print(f"مقاله '{title}' با موفقیت ارسال شد.")
 
 def main():
-    time_threshold = datetime.now() - timedelta(minutes=31)
+    # تنظیم time_threshold با timezone.utc
+    time_threshold = datetime.now(timezone.utc) - timedelta(minutes=31)
+
     articles = get_new_articles()
 
     for article in articles:
         try:
-            published_at = datetime.fromisoformat(article["published_at"].replace("Z", "+00:00"))
+            published_at_str = article["published_at"]
+            if published_at_str.endswith('Z'):
+                published_at_str = published_at_str[:-1] + '+00:00'
+            published_at = datetime.fromisoformat(published_at_str)
+
+            if published_at.tzinfo is None:
+                published_at = published_at.replace(tzinfo=timezone.utc)
+
             if published_at > time_threshold:
                 send_to_telegram(article)
         except KeyError as e:
             print(f"خطا در پردازش مقاله: {e}")
             continue
-
-if __name__ == "__main__":
-    main()
