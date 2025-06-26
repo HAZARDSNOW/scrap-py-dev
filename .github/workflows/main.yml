@@ -23,7 +23,7 @@ jobs:
           pip install requests beautifulsoup4 pillow python-telegram-bot telebot
 
       - name: Execute Python Script
-        run: python scrapbyapi.py
+        run: python scrap2.py
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
