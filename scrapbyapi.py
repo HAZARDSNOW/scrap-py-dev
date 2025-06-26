@@ -28,7 +28,7 @@ def generate_summary(article_text):
             ],
             "max_tokens": 150
         }
-        response =.requests.post(POLLINATIONS_TEXT_API, headers={"Content-Type": "application/json"}, json=payload)
+        response =requests.post(POLLINATIONS_TEXT_API, headers={"Content-Type": "application/json"}, json=payload)
         response.raise_for_status()
         summary = response.json().get("choices", [{}])[0].get("message", {}).get("content", "")
         if summary:
